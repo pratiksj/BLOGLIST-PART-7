@@ -1,7 +1,10 @@
 import { useState } from "react";
 import blogService from "../services/blogs";
+import { useDispatch } from "react-redux";
+import { setNotification } from "../reducers/notificationReducer";
 
 const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
+  const dispatch = useDispatch();
   const [disPlay, setDisPlay] = useState(false);
 
   const blogStyle = {
@@ -28,6 +31,7 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
       await blogService.remove(id);
       setBlogs(blogs.filter((blog) => blog.id !== id));
     }
+    dispatch(setNotification(`deleted`, 3));
   };
 
   return (
