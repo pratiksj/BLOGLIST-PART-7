@@ -1,0 +1,16 @@
+.blog {
+  color: blue;
+  font-style: normal;
+  padding-top: 15px;
+  font-size: 30px;
+  background-color: grey;
+  text-align: center;
+}
+
+.error {
+  color: red;
+  padding-top: 15px;
+  font-style: normal;
+  font-size: 30px;
+  text-align: center;
+}
