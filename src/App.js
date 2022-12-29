@@ -6,27 +6,34 @@ import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
+import { useDispatch, useSelector } from "react-redux";
+import { initializedBlog } from "./reducers/blogReducer";
 
 const App = () => {
   const noteFormRef = useRef();
-  const [blogs, setBlogs] = useState([]);
+  //const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
   const [message, setErrorMessage] = useState(null);
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
+  const blogs = useSelector((state) => state.blogs);
+  console.log("this is from database", blogs);
   //const [color, setColor] = useState("");
 
-  useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
-  }, []);
+  // useEffect(() => {
+  //   console.log("this is first useEffect");
+  //   dispatch(initializedBlog());
+  // }, []);
 
   useEffect(() => {
+    console.log("this is from useeffect");
     const loggedUserJSON = window.localStorage.getItem("loggedNoteappUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
-      blogService.setToken(user.token);
     }
+    dispatch(initializedBlog());
   }, []);
 
   const handleLogin = async (event) => {
@@ -66,40 +73,41 @@ const App = () => {
     setUser(null);
   };
 
-  const increaseLike = async (id) => {
-    const blogUpdate = blogs.find((blogs) => blogs.id === id);
-    const updatedBlog = {
-      likes: blogUpdate.likes + 1,
-      author: blogUpdate.author,
-      title: blogUpdate.tittle,
-      url: blogUpdate.url,
-    };
-    const response = await blogService.update(id, updatedBlog);
-    // const tosetlikeBlog = blogs.map((blog) =>
-    //   blog.id === id ? response : blogs
-    // );
-    setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
-    //setBlogs(tosetlikeBlog);
-  };
+  // const increaseLike = async (id) => {
+  //   const blogUpdate = blogs.find((blogs) => blogs.id === id);
+  //   const updatedBlog = {
+  //     likes: blogUpdate.likes + 1,
+  //     author: blogUpdate.author,
+  //     title: blogUpdate.tittle,
+  //     url: blogUpdate.url,
+  //   };
+  //   const response = await blogService.update(id, updatedBlog);
+  //   // const tosetlikeBlog = blogs.map((blog) =>
+  //   //   blog.id === id ? response : blogs
+  //   // );
+  //   setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
+  //   //setBlogs(tosetlikeBlog);
+  // };
 
-  const addBlog = async (blogObject) => {
-    try {
-      const returnedNote = await blogService.create(blogObject);
-      setBlogs(blogs.concat(returnedNote));
-      noteFormRef.current.toggleVisibility();
-    } catch (exception) {
-      setErrorMessage({ message: "this is error" });
-    }
-  };
+  // const addBlog = async (blogObject) => {
+  //   try {
+  //     const returnedNote = await blogService.create(blogObject);
+  //     setBlogs(blogs.concat(returnedNote));
+  //     noteFormRef.current.toggleVisibility();
+  //   } catch (exception) {
+  //     setErrorMessage({ message: "this is error" });
+  //   }
+  // };
 
   const blogForm = () => (
     <Togglable buttonLabel="new blog" ref={noteFormRef}>
-      <BlogForm createBlog={addBlog} />
+      {/* <BlogForm createBlog={addBlog} /> */}
+      <BlogForm />
     </Togglable>
     // <BlogForm createBlog={addBlog} />
   );
 
-  const sortedBlog = blogs.sort((a, b) => b.likes - a.likes);
+  //const sortedBlog = blogs.sort((a, b) => b.likes - a.likes);
 
   return (
     <div>
@@ -116,17 +124,17 @@ const App = () => {
           <span>{user.name} logged in</span>
           <button onClick={logOut}>logout</button>
           {blogForm()}
-          {sortedBlog.map((blog) => (
+          {blogs.map((blog) => (
             <Blog
               key={blog.id}
               blog={blog}
-              setBlogs={setBlogs}
-              blogs={blogs}
+              // setBlogs={setBlogs}
+              // blogs={blogs}
               user={user}
-              increaseLike={increaseLike}
+              // increaseLike={increaseLike}
             />
           ))}
-          {/* <Blog blog={blogs} /> */}
+          {/* <Blog /> */}
         </>
       )}
     </div>
