@@ -1,11 +1,12 @@
 import { useState } from "react";
 //import blogService from "../services/blogs";
-//import { useSelector } from "react-redux";
-//import { setNotification } from "../reducers/notificationReducer";
+import { useSelector, useDispatch } from "react-redux";
+import { increaseLike } from "../reducers/blogReducer";
+import { setNotification } from "../reducers/notificationReducer";
 
 const Blog = ({ blog, user }) => {
-  //const dispatch = useDispatch();
-  //const blogs = useSelector((state) => state.blogs);
+  const dispatch = useDispatch();
+  const blogs = useSelector((state) => state.blogs);
   //console.log("america", blogs);
 
   const [disPlay, setDisPlay] = useState(false);
@@ -22,6 +23,12 @@ const Blog = ({ blog, user }) => {
 
   const showToggle = () => {
     setDisPlay(!disPlay);
+  };
+
+  const newLike = (id) => {
+    const updatedLike = blogs.find((blog) => blog.id === id);
+    dispatch(increaseLike(id));
+    dispatch(setNotification(`you have like ${updatedLike.title}`, 3));
   };
 
   // const deletedBlog = async (id) => {
@@ -57,7 +64,7 @@ const Blog = ({ blog, user }) => {
           <div id="like">
             likes {blog.likes}
             {/* <button id="likeButton" onClick={() => increaseLike(blog.id)}> */}
-            <button>like</button>
+            <button onClick={() => newLike(blog.id)}>like</button>
           </div>
           {blog.user === user.id || blog.user.id ? (
             <button

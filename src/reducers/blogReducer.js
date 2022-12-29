@@ -11,10 +11,19 @@ const blogSlice = createSlice({
     setBlog(state, action) {
       return action.payload;
     },
+    voteOf(state, action) {
+      const id = action.payload;
+      const blogToLike = state.find((n) => n.id === id);
+      const likedBlog = {
+        ...blogToLike,
+        likes: blogToLike.likes + 1,
+      };
+      return state.map((blog) => (blog.id !== id ? blog : likedBlog));
+    },
   },
 });
 
-export const { appendBlog, setBlog } = blogSlice.actions;
+export const { appendBlog, setBlog, voteOf } = blogSlice.actions;
 export default blogSlice.reducer;
 
 export const initializedBlog = () => {
@@ -22,5 +31,25 @@ export const initializedBlog = () => {
     const blogs = await blogService.getAll();
     console.log("annitya", blogs);
     dispatch(setBlog(blogs));
+  };
+};
+
+export const createBlog = (blog) => {
+  return async (dispatch) => {
+    const newBlog = await blogService.create(blog);
+    dispatch(appendBlog(newBlog));
+  };
+};
+
+export const increaseLike = (id) => {
+  return async (dispatch) => {
+    const blog = await blogService.getAll();
+    const blogToLike = blog.find((blog) => blog.id === id);
+    const likedBlog = {
+      ...blogToLike,
+      likes: blogToLike.likes + 1,
+    };
+    const response = await blogService.update(id, likedBlog);
+    dispatch(voteOf(response.id));
   };
 };
