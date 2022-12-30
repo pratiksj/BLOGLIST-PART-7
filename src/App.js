@@ -70,7 +70,7 @@ const App = () => {
   const addBlog = async (blogObject) => {
     try {
       dispatch(createBlog(blogObject));
-      dispatch(setNotification(`Added`, 3));
+      //dispatch(setNotification(`Added`, 3));
       noteFormRef.current.toggleVisibility();
     } catch (exception) {
       dispatch(setNotification(`${exception.response.data.error}`, 3));

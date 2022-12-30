@@ -1,7 +1,7 @@
 import { useState } from "react";
 //import blogService from "../services/blogs";
 import { useSelector, useDispatch } from "react-redux";
-import { increaseLike } from "../reducers/blogReducer";
+import { increaseLike, deletedBlog } from "../reducers/blogReducer";
 import { setNotification } from "../reducers/notificationReducer";
 
 const Blog = ({ blog, user }) => {
@@ -31,18 +31,19 @@ const Blog = ({ blog, user }) => {
     dispatch(setNotification(`you have like ${updatedLike.title}`, 3));
   };
 
-  // const deletedBlog = async (id) => {
-  //   const blogToRemove = blogs.find((blog) => blog.id === id);
-  //   const result = window.confirm(
-  //     `remove the ${blogToRemove.title}by ${blogToRemove.author}`
-  //   );
+  const blogToDelete = async (id) => {
+    const blogToRemove = blogs.find((blog) => blog.id === id);
+    console.log("thailand", blogToRemove);
+    const result = window.confirm(
+      `remove the ${blogToRemove.title}by ${blogToRemove.author}`
+    );
+    console.log("this from result", result);
 
-  //   if (result) {
-  //     await blogService.remove(id);
-  //     setBlogs(blogs.filter((blog) => blog.id !== id));
-  //   }
-  //   dispatch(setNotification(`deleted`, 3));
-  // };
+    if (result) {
+      dispatch(deletedBlog(id));
+    }
+    dispatch(setNotification(` you have deleted ${blogToRemove.title}`, 3));
+  };
 
   return (
     <div style={blogStyle} key={blog}>
@@ -63,13 +64,12 @@ const Blog = ({ blog, user }) => {
           <div className="url">{blog.url}</div>
           <div id="like">
             likes {blog.likes}
-            {/* <button id="likeButton" onClick={() => increaseLike(blog.id)}> */}
             <button onClick={() => newLike(blog.id)}>like</button>
           </div>
           {blog.user === user.id || blog.user.id ? (
             <button
               style={{ backgroundColor: "red" }}
-              onClick={() => deletedBlog(blog.id)}
+              onClick={() => blogToDelete(blog.id)}
             >
               remove
             </button>
