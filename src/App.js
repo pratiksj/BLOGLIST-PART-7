@@ -4,20 +4,20 @@ import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
 import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
-import blogService from "./services/blogs";
 import loginService from "./services/login";
 import { setNotification } from "./reducers/notificationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { initializedBlog, createBlog } from "./reducers/blogReducer";
+import { setUser } from "./reducers/userReducer";
 
 const App = () => {
   const noteFormRef = useRef();
   const [username, setUsername] = useState("");
-  const [message, setErrorMessage] = useState(null);
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.blogs);
+  const user = useSelector((state) => state.user);
+  console.log("this is user", user);
   console.log("this is from database", blogs);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem("loggedNoteappUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      setUser(user);
+      dispatch(setUser(user));
     }
     dispatch(initializedBlog());
   }, []);
@@ -38,16 +38,13 @@ const App = () => {
         username,
         password,
       });
-      blogService.setToken(user.token);
-      setUser(user);
+      dispatch(setUser(user));
       window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
       setUsername("");
       setPassword("");
+      dispatch(setNotification(`${user.name} has login successfully`, 3));
     } catch (exception) {
-      setErrorMessage("wrong username or password");
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
+      dispatch(setNotification("wrong username or password", 3));
     }
   };
   const loginForm = () => (
@@ -64,7 +61,8 @@ const App = () => {
 
   const logOut = () => {
     window.localStorage.removeItem("loggedNoteappUser");
-    setUser(null);
+    dispatch(setUser(null));
+    //setUser(null);
   };
 
   const addBlog = async (blogObject) => {
@@ -73,7 +71,12 @@ const App = () => {
       //dispatch(setNotification(`Added`, 3));
       noteFormRef.current.toggleVisibility();
     } catch (exception) {
-      dispatch(setNotification(`${exception.response.data.error}`, 3));
+      dispatch(
+        setNotification(
+          "Title or author must contain more than 5 character ",
+          3
+        )
+      );
     }
   };
 
@@ -88,7 +91,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={message} />
+      <Notification />
 
       {user === null ? (
         <>
