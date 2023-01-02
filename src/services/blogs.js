@@ -1,11 +1,11 @@
 import axios from "axios";
 const baseUrl = "/api/blogs";
 
-let token = JSON.parse(localStorage.getItem("loggedNoteappUser")).token;
-
 // const setToken = (newToken) => {
 //   token = `bearer ${newToken}`;
 // };
+let token = JSON.parse(localStorage.getItem("loggedNoteappUser"))?.token;
+//let token = null;
 
 const getAll = () => {
   const request = axios.get(baseUrl);

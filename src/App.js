@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import Blog from "./components/Blog";
+// import Blog from "./components/Blog";
 import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
 import LoginForm from "./components/LoginForm";
@@ -9,11 +9,16 @@ import { setNotification } from "./reducers/notificationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { initializedBlog, createBlog } from "./reducers/blogReducer";
 import { setUser } from "./reducers/userReducer";
+// import userService from "./services/users";
+import { Routes, Route } from "react-router-dom";
+import User from "./components/User";
+import Home from "./home/Home";
 
 const App = () => {
   const noteFormRef = useRef();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // const [listOfUser, setListOfUser] = useState([]);
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.blogs);
   const user = useSelector((state) => state.user);
@@ -38,8 +43,8 @@ const App = () => {
         username,
         password,
       });
-      dispatch(setUser(user));
       window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
+      dispatch(setUser(user));
       setUsername("");
       setPassword("");
       dispatch(setNotification(`${user.name} has login successfully`, 3));
@@ -68,7 +73,6 @@ const App = () => {
   const addBlog = async (blogObject) => {
     try {
       dispatch(createBlog(blogObject));
-      //dispatch(setNotification(`Added`, 3));
       noteFormRef.current.toggleVisibility();
     } catch (exception) {
       dispatch(
@@ -92,8 +96,24 @@ const App = () => {
   return (
     <div>
       <Notification />
+      {/* <Link to="/users">users</Link> */}
+      <Routes>
+        <Route path="/users" element={<User />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              user={user}
+              loginForm={loginForm}
+              logOut={logOut}
+              blogForm={blogForm}
+              blogs={blogs}
+            />
+          }
+        />
+      </Routes>
 
-      {user === null ? (
+      {/* {user === null ? (
         <>
           <h2>Log into application</h2>
           {loginForm()}
@@ -114,7 +134,7 @@ const App = () => {
             />
           ))}
         </>
-      )}
+      )} */}
     </div>
   );
 };
