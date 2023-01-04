@@ -6,4 +6,4 @@ const getAll = () => {
   return request.then((respone) => respone.data);
 };
 
-export default getAll;
+export default { getAll };

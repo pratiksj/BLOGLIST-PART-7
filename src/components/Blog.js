@@ -33,7 +33,7 @@ const Blog = ({ blog, user }) => {
 
   const blogToDelete = async (id) => {
     const blogToRemove = blogs.find((blog) => blog.id === id);
-    console.log("thailand", blogToRemove);
+    //console.log("thailand", blogToRemove);
     const result = window.confirm(
       `remove the ${blogToRemove.title}by ${blogToRemove.author}`
     );

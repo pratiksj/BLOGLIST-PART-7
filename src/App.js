@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 // import Blog from "./components/Blog";
+import userService from "./services/users";
 import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
 //import { InfoOfUser } from "./components/InfoOfUser";
@@ -10,7 +11,6 @@ import { setNotification } from "./reducers/notificationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { initializedBlog, createBlog } from "./reducers/blogReducer";
 import { setUser } from "./reducers/userReducer";
-// import userService from "./services/users";
 import { Routes, Route } from "react-router-dom";
 import User from "./components/User";
 import Home from "./home/Home";
@@ -19,12 +19,10 @@ const App = () => {
   const noteFormRef = useRef();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [listOfUser, setListOfUser] = useState([]);
+  const [listOfUser, setListOfUser] = useState([]);
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.blogs);
   const user = useSelector((state) => state.user);
-  console.log("this is user", user);
-  console.log("this is from database", blogs);
 
   useEffect(() => {
     console.log("this is from useeffect");
@@ -35,6 +33,14 @@ const App = () => {
     }
     dispatch(initializedBlog());
   }, []);
+
+  useEffect(() => {
+    userService.getAll().then((result) => {
+      setListOfUser(result);
+    });
+  }, []);
+
+  console.log(listOfUser);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -99,7 +105,7 @@ const App = () => {
       <Notification />
       {/* <Link to="/users">users</Link> */}
       <Routes>
-        <Route path="/users" element={<User />} />
+        <Route path="/users" element={<User listOfUser={listOfUser} />} />
         <Route
           path="/"
           element={
