@@ -1,6 +1,6 @@
 import React from "react";
 import Blog from "../components/Blog";
-import { InfoOfUser } from "../components/InfoOfUser";
+//import { InfoOfUser } from "../components/InfoOfUser";
 
 const Home = ({ user, loginForm, logOut, blogForm, blogs }) => {
   return (
@@ -14,7 +14,7 @@ const Home = ({ user, loginForm, logOut, blogForm, blogs }) => {
         <>
           <h2>Blog</h2>
           {/* <span>{user.name} logged in</span> */}
-          <InfoOfUser />
+
           <button onClick={logOut}>logout</button>
           {blogForm()}
           {blogs.map((blog) => (

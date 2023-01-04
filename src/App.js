@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import userService from "./services/users";
 import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
-//import { InfoOfUser } from "./components/InfoOfUser";
+import { InfoOfUser } from "./components/InfoOfUser";
 import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
 import loginService from "./services/login";
@@ -11,7 +11,7 @@ import { setNotification } from "./reducers/notificationReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { initializedBlog, createBlog } from "./reducers/blogReducer";
 import { setUser } from "./reducers/userReducer";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import User from "./components/User";
 import Home from "./home/Home";
 
@@ -103,7 +103,9 @@ const App = () => {
   return (
     <div>
       <Notification />
-      {/* <Link to="/users">users</Link> */}
+      <Link to="/">Blogs</Link> &nbsp; &nbsp; &nbsp;
+      <Link to="/users">Users</Link>
+      <InfoOfUser logOut={logOut} />
       <Routes>
         <Route path="/users" element={<User listOfUser={listOfUser} />} />
         <Route
@@ -119,29 +121,6 @@ const App = () => {
           }
         />
       </Routes>
-
-      {/* {user === null ? (
-        <>
-          <h2>Log into application</h2>
-          {loginForm()}
-        </>
-      ) : (
-        <>
-          <h2>Blog</h2>
-          <span>{user.name} logged in</span>
-          <button onClick={logOut}>logout</button>
-          {blogForm()}
-          {blogs.map((blog) => (
-            <Blog
-              key={blog.id}
-              blog={blog}
-              // setBlogs={setBlogs}
-              // blogs={blogs}
-              user={user}
-            />
-          ))}
-        </>
-      )} */}
     </div>
   );
 };

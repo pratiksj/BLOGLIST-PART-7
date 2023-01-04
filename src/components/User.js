@@ -16,7 +16,10 @@ const User = ({ listOfUser }) => {
             <td>
               <h1>users</h1>
             </td>
-            <td>blogs created</td>
+            &nbsp; &nbsp; &nbsp;
+            {/* <td>
+              <h1>blogs created </h1>
+            </td> */}
           </tr>
         </thead>
         <tbody>
@@ -32,10 +35,17 @@ const User = ({ listOfUser }) => {
                 );
               })
             : null} */}
+          <tr>
+            <td></td> &nbsp; &nbsp; &nbsp;
+            <td>
+              <h2>blog created</h2>
+            </td>
+          </tr>
           {listOfUser.map((user) => {
             return (
               <tr key={user.id}>
                 <td>{user.name}</td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 <td>{user.blogs.length}</td>
               </tr>
             );
