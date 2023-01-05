@@ -15,6 +15,7 @@ import { Routes, Route, Link, useMatch } from "react-router-dom";
 import User from "./components/User";
 import Home from "./home/Home";
 import { ListOfUser } from "./components/ListOfUser";
+import { BlogDetails } from "./components/BlogDetails";
 
 const App = () => {
   const noteFormRef = useRef();
@@ -45,6 +46,11 @@ const App = () => {
 
   const singleUser = matchUser
     ? listOfUser.find((user) => user.id === matchUser.params.id)
+    : null;
+
+  const matchBlog = useMatch("/blogs/:id");
+  const singleBlog = matchBlog
+    ? blogs.find((blog) => blog.id === matchBlog.params.id)
     : null;
 
   const handleLogin = async (event) => {
@@ -116,6 +122,10 @@ const App = () => {
         <Route
           path="/users/:id"
           element={<ListOfUser singleUser={singleUser} />}
+        />
+        <Route
+          path="/blogs/:id"
+          element={<BlogDetails singleBlog={singleBlog} blogs={blogs} />}
         />
         <Route
           path="/"

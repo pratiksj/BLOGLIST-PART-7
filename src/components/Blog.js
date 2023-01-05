@@ -1,5 +1,6 @@
 import { useState } from "react";
 //import blogService from "../services/blogs";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { increaseLike, deletedBlog } from "../reducers/blogReducer";
 import { setNotification } from "../reducers/notificationReducer";
@@ -48,15 +49,16 @@ const Blog = ({ blog, user }) => {
   return (
     <div style={blogStyle} key={blog}>
       {!disPlay ? (
-        <div className="blog">
-          {blog.title} {blog.author}
-          <button id="view" className="view" onClick={showToggle}>
-            view
-          </button>
+        <div>
+          <Link to={`/blogs/${blog.id}`}>
+            {blog.title} {blog.author}
+          </Link>
+
+          <button onClick={showToggle}>view</button>
         </div>
       ) : (
-        <div className="blog">
-          {blog.title}
+        <div>
+          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
           <button id="Hide" onClick={showToggle}>
             Hide
           </button>
