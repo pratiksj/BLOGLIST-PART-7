@@ -9,7 +9,9 @@ export const InfoOfUser = () => {
   return (
     <div>
       {user.name} logged in
-      <button>logout</button>
+      <div>
+        <button>logout</button>
+      </div>
     </div>
   );
 };

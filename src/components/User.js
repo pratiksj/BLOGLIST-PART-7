@@ -1,10 +1,9 @@
 import React from "react";
-//import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 import { InfoOfUser } from "./InfoOfUser";
 
 const User = ({ listOfUser }) => {
-  //const blogs = useSelector((state) => state.blogs);
-
   console.log("this is from User component", listOfUser);
 
   return (
@@ -38,13 +37,16 @@ const User = ({ listOfUser }) => {
           <tr>
             <td></td> &nbsp; &nbsp; &nbsp;
             <td>
-              <h2>blog created</h2>
+              <h3>blog created</h3>
             </td>
           </tr>
           {listOfUser.map((user) => {
             return (
               <tr key={user.id}>
-                <td>{user.name}</td>
+                <td>
+                  {/* <Link to={"/users/:id"}>{user.name}</Link> */}
+                  <Link to={`/users/${user.id}`}>{user.name}</Link>
+                </td>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 <td>{user.blogs.length}</td>
               </tr>
