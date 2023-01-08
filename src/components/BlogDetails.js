@@ -27,11 +27,12 @@ export const BlogDetails = ({ singleBlog, blogs }) => {
     event.preventDefault();
     const comment = event.target.comment.value;
     axios
-      .post(`http://localhost:3001/api/blogs/${singleBlog.id}/comments`, {
+      .post(`http://localhost:3003/api/blogs/${singleBlog.id}/comments`, {
         comment,
       })
       .then((result) => {
-        setComment([...comments, result.data]);
+        //setComment([...comments, result.data]);
+        setComment(comments.concat(result.data));
       });
     event.target.comment.value = "";
   };
