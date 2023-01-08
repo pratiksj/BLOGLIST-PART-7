@@ -1,14 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import { InfoOfUser } from "./InfoOfUser";
-
 const User = ({ listOfUser }) => {
   console.log("this is from User component", listOfUser);
 
   return (
     <div>
-      <InfoOfUser />
       <table>
         <thead>
           <tr>
