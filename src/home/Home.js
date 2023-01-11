@@ -2,7 +2,7 @@ import React from "react";
 import Blog from "../components/Blog";
 //import { InfoOfUser } from "../components/InfoOfUser";
 
-const Home = ({ user, loginForm, logOut, blogForm, blogs }) => {
+const Home = ({ user, loginForm, blogForm, blogs }) => {
   return (
     <div>
       {user === null ? (
@@ -14,7 +14,7 @@ const Home = ({ user, loginForm, logOut, blogForm, blogs }) => {
         <>
           <h2>Blog</h2>
           {/* <span>{user.name} logged in</span> */}
-          <button onClick={logOut}>logout</button>
+          {/* <button onClick={logOut}>logout</button> */}
           {blogForm()}
           {blogs.map((blog) => (
             <Blog

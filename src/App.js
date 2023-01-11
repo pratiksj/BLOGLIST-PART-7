@@ -19,8 +19,8 @@ import { BlogDetails } from "./components/BlogDetails";
 
 const App = () => {
   const noteFormRef = useRef();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  //const [username, setUsername] = useState("");
+  //const [password, setPassword] = useState("");
   const [listOfUser, setListOfUser] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -56,6 +56,8 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    const username = event.target.username.value;
+    const password = event.target.password.value;
 
     try {
       const user = await loginService.login({
@@ -64,8 +66,8 @@ const App = () => {
       });
       window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
       dispatch(setUser(user));
-      setUsername("");
-      setPassword("");
+      //setUsername("");
+      //setPassword("");
       dispatch(setNotification(`${user.name} has login successfully`, 3));
     } catch (exception) {
       dispatch(setNotification("wrong username or password", 3));
@@ -74,10 +76,10 @@ const App = () => {
   const loginForm = () => (
     <Togglable buttonLabel="login">
       <LoginForm
-        username={username}
-        password={password}
-        handleUsernameChange={({ target }) => setUsername(target.value)}
-        handlePasswordChange={({ target }) => setPassword(target.value)}
+        //username={username}
+        //password={password}
+        // handleUsernameChange={({ target }) => setUsername(target.value)}
+        //handlePasswordChange={({ target }) => setPassword(target.value)}
         handleSubmit={handleLogin}
       />
     </Togglable>
@@ -119,7 +121,14 @@ const App = () => {
       <Notification />
       <Link to="/">Blogs</Link> &nbsp; &nbsp; &nbsp;
       <Link to="/users">Users</Link>
-      <InfoOfUser logOut={logOut} />
+      <span
+        style={{
+          position: "absolute",
+          right: "1000px",
+        }}
+      >
+        <InfoOfUser logOut={logOut} />
+      </span>
       <Routes>
         <Route
           path="/users"
