@@ -16,6 +16,7 @@ import User from "./components/User";
 import Home from "./home/Home";
 import { ListOfUser } from "./components/ListOfUser";
 import { BlogDetails } from "./components/BlogDetails";
+import { Container } from "@mui/system";
 
 const App = () => {
   const noteFormRef = useRef();
@@ -117,45 +118,47 @@ const App = () => {
   //const sortedBlog = blogs.sort((a, b) => b.likes - a.likes);
 
   return (
-    <div>
-      <Notification />
-      <Link to="/">Blogs</Link> &nbsp; &nbsp; &nbsp;
-      <Link to="/users">Users</Link>
-      <span
-        style={{
-          position: "absolute",
-          right: "1000px",
-        }}
-      >
-        <InfoOfUser logOut={logOut} />
-      </span>
-      <Routes>
-        <Route
-          path="/users"
-          element={<User listOfUser={listOfUser} logOut={logOut} />}
-        />
-        <Route
-          path="/users/:id"
-          element={<ListOfUser singleUser={singleUser} logOut={logOut} />}
-        />
-        <Route
-          path="/blogs/:id"
-          element={<BlogDetails singleBlog={singleBlog} blogs={blogs} />}
-        />
-        <Route
-          path="/"
-          element={
-            <Home
-              user={user}
-              loginForm={loginForm}
-              logOut={logOut}
-              blogForm={blogForm}
-              blogs={blogs}
-            />
-          }
-        />
-      </Routes>
-    </div>
+    <Container>
+      <div>
+        <Notification />
+        <Link to="/">Blogs</Link> &nbsp; &nbsp; &nbsp;
+        <Link to="/users">Users</Link>
+        <span
+          style={{
+            position: "absolute",
+            right: "950px",
+          }}
+        >
+          <InfoOfUser logOut={logOut} />
+        </span>
+        <Routes>
+          <Route
+            path="/users"
+            element={<User listOfUser={listOfUser} logOut={logOut} />}
+          />
+          <Route
+            path="/users/:id"
+            element={<ListOfUser singleUser={singleUser} logOut={logOut} />}
+          />
+          <Route
+            path="/blogs/:id"
+            element={<BlogDetails singleBlog={singleBlog} blogs={blogs} />}
+          />
+          <Route
+            path="/"
+            element={
+              <Home
+                user={user}
+                loginForm={loginForm}
+                logOut={logOut}
+                blogForm={blogForm}
+                blogs={blogs}
+              />
+            }
+          />
+        </Routes>
+      </div>
+    </Container>
   );
 };
 
