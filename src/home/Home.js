@@ -13,8 +13,9 @@ const Home = ({ user, loginForm, blogForm, blogs }) => {
       ) : (
         <>
           <h2>Blog</h2>
-
-          {blogForm()}
+          {/* <span>{user.name} logged in</span>
+          <button onClick={logOut}>logout</button> */}
+          <div>{blogForm()}</div>
           {blogs.map((blog) => (
             <Blog
               key={blog.id}

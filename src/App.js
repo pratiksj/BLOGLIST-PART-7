@@ -20,8 +20,8 @@ import { Container } from "@mui/system";
 
 const App = () => {
   const noteFormRef = useRef();
-  //const [username, setUsername] = useState("");
-  //const [password, setPassword] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
   const [listOfUser, setListOfUser] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -67,8 +67,8 @@ const App = () => {
       });
       window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
       dispatch(setUser(user));
-      //setUsername("");
-      //setPassword("");
+      // setUsername("");
+      // setPassword("");
       dispatch(setNotification(`${user.name} has login successfully`, 3));
     } catch (exception) {
       dispatch(setNotification("wrong username or password", 3));
@@ -77,10 +77,10 @@ const App = () => {
   const loginForm = () => (
     <Togglable buttonLabel="login">
       <LoginForm
-        //username={username}
-        //password={password}
+        // username={username}
+        // password={password}
         // handleUsernameChange={({ target }) => setUsername(target.value)}
-        //handlePasswordChange={({ target }) => setPassword(target.value)}
+        // handlePasswordChange={({ target }) => setPassword(target.value)}
         handleSubmit={handleLogin}
       />
     </Togglable>

@@ -1,4 +1,4 @@
-import { TextField, Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 const LoginForm = ({
   handleSubmit,
@@ -13,15 +13,15 @@ const LoginForm = ({
 
       <form onSubmit={handleSubmit}>
         <div>
-          <TextField name="username" label="username" />
           {/* <input type="text" name="username" /> */}
+          <TextField name="username" label="username" />
         </div>
         <div>
-          <TextField label="password" name="password" />
-
           {/* <input type="password" name="password" /> */}
+          <TextField label="password" name="password" />
         </div>
-        <Button variant="contained" color="primary" type="login">
+        {/* <button type="submit">login</button> */}
+        <Button variant="contained" color="primary" type="submit">
           login
         </Button>
       </form>
