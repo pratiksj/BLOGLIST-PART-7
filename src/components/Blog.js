@@ -1,4 +1,14 @@
 import { useState } from "react";
+import {
+  Button,
+  //Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+} from "@mui/material";
 //import blogService from "../services/blogs";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,15 +22,15 @@ const Blog = ({ blog, user }) => {
 
   const [disPlay, setDisPlay] = useState(false);
 
-  const blogStyle = {
-    //paddingTop: 8,
-    // paddingLeft: 2,
-    //paddingRight: 2,
-    border: "solid",
-    borderWidth: 2,
-    borderColor: "black",
-    marginBottom: 5,
-  };
+  // const blogStyle = {
+  //   //paddingTop: 8,
+  //   // paddingLeft: 2,
+  //   //paddingRight: 2,
+  //   border: "solid",
+  //   borderWidth: 2,
+  //   borderColor: "black",
+  //   marginBottom: 5,
+  // };
 
   const showToggle = () => {
     setDisPlay(!disPlay);
@@ -47,39 +57,162 @@ const Blog = ({ blog, user }) => {
   };
 
   return (
-    <div style={blogStyle} key={blog}>
-      {!disPlay ? (
-        <div>
-          <Link to={`/blogs/${blog.id}`}>
-            {blog.title} {blog.author}
-          </Link>
-
-          <button onClick={showToggle}>view</button>
-        </div>
-      ) : (
-        <div>
-          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-          <button id="Hide" onClick={showToggle}>
+    //<div style={blogStyle} key={blog}>
+    <div>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableBody>
+            {!disPlay ? (
+              <TableRow key={blog.id}>
+                <div>
+                  <TableCell>
+                    <Link to={`/blogs/${blog.id}`}>
+                      {blog.title} {blog.author}
+                    </Link>
+                    <Button
+                      onClick={showToggle}
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      style={{
+                        position: "absolute",
+                        //top: "254px",
+                        left: "500px",
+                      }}
+                    >
+                      view
+                    </Button>
+                  </TableCell>
+                  {/* <button onClick={showToggle}>view</button> */}
+                </div>
+              </TableRow>
+            ) : (
+              <div>
+                <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                <Button
+                  onClick={showToggle}
+                  variant="contained"
+                  color="secondary"
+                  type="submit"
+                >
+                  Hide
+                </Button>
+                {/* <button id="Hide" onClick={showToggle}>
             Hide
-          </button>
-          <div>{blog.author}</div>
-          <div className="url">{blog.url}</div>
-          <div id="like">
-            likes {blog.likes}
-            <button onClick={() => newLike(blog.id)}>like</button>
-          </div>
-          {blog.user === user.id || blog.user.id ? (
-            <button
-              style={{ backgroundColor: "red" }}
-              onClick={() => blogToDelete(blog.id)}
-            >
-              remove
-            </button>
-          ) : null}
-        </div>
-      )}
+          </button> */}
+                <div>{blog.author}</div>
+                <div className="url">{blog.url}</div>
+                <div id="like">
+                  likes {blog.likes}
+                  <Button
+                    onClick={() => newLike(blog.id)}
+                    variant="contained"
+                    color="secondary"
+                    type="submit"
+                    style={{
+                      maxWidth: "37px",
+                      maxHeight: "30px",
+                      minWidth: "30px",
+                      minHeight: "30px",
+                    }}
+                  >
+                    like
+                  </Button>
+                  {/* <button onClick={() => newLike(blog.id)}>like</button> */}
+                </div>
+                {blog.user === user.id || blog.user.id ? (
+                  <Button
+                    onClick={() => blogToDelete(blog.id)}
+                    variant="contained"
+                    color="error"
+                    type="submit"
+                  >
+                    remove
+                  </Button>
+                ) : // <button
+                //   style={{ backgroundColor: "red" }}
+                //   onClick={() => blogToDelete(blog.id)}
+                // >
+                //   remove
+                // </button>
+                null}
+              </div>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
 
 export default Blog;
+
+// {/* <div style={blogStyle} key={blog}>
+//       {!disPlay ? (
+//         <div>
+//           <Link to={`/blogs/${blog.id}`}>
+//             {blog.title} {blog.author}
+//           </Link>
+//           <Button
+//             onClick={showToggle}
+//             variant="contained"
+//             color="primary"
+//             type="submit"
+//           >
+//             view
+//           </Button>
+//           {/* <button onClick={showToggle}>view</button> */}
+//         </div>
+//       ) : (
+//         <div>
+//           <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+//           <Button
+//             onClick={showToggle}
+//             variant="contained"
+//             color="secondary"
+//             type="submit"
+//           >
+//             Hide
+//           </Button>
+//           {/* <button id="Hide" onClick={showToggle}>
+//             Hide
+//           </button> */}
+//           <div>{blog.author}</div>
+//           <div className="url">{blog.url}</div>
+//           <div id="like">
+//             likes {blog.likes}
+//             <Button
+//               onClick={() => newLike(blog.id)}
+//               variant="contained"
+//               color="secondary"
+//               type="submit"
+//               style={{
+//                 maxWidth: "37px",
+//                 maxHeight: "30px",
+//                 minWidth: "30px",
+//                 minHeight: "30px",
+//               }}
+//             >
+//               like
+//             </Button>
+//             {/* <button onClick={() => newLike(blog.id)}>like</button> */}
+//           </div>
+//           {blog.user === user.id || blog.user.id ? (
+//             <Button
+//               onClick={() => blogToDelete(blog.id)}
+//               variant="contained"
+//               color="error"
+//               type="submit"
+//             >
+//               remove
+//             </Button>
+//           ) : // <button
+//           //   style={{ backgroundColor: "red" }}
+//           //   onClick={() => blogToDelete(blog.id)}
+//           // >
+//           //   remove
+//           // </button>
+//           null}
+//         </div>
+//       )}
+//     </div> */}
