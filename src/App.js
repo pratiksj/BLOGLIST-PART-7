@@ -16,7 +16,7 @@ import User from "./components/User";
 import Home from "./home/Home";
 import { ListOfUser } from "./components/ListOfUser";
 import { BlogDetails } from "./components/BlogDetails";
-import { Container } from "@mui/system";
+import { Container, AppBar, Toolbar, Button } from "@mui/material";
 
 const App = () => {
   const noteFormRef = useRef();
@@ -121,17 +121,44 @@ const App = () => {
     <Container>
       <div>
         <Notification />
-        <Link to="/">Blogs</Link> &nbsp; &nbsp; &nbsp;
-        <Link to="/users">Users</Link>
-        <span
+        <div>
+          <AppBar position="static">
+            <Toolbar>
+              <Button color="inherit" component={Link} to="/">
+                Blogs
+              </Button>
+              <Button color="inherit" component={Link} to="/users">
+                Users
+              </Button>
+              <span
+                style={{
+                  position: "absolute",
+                  right: "800px",
+                  top: "19px",
+                }}
+              >
+                <InfoOfUser logOut={logOut} />
+              </span>
+              {/* {user
+      ? <em>{user} logged in</em>
+      : <Button color="inherit" component={Link} to="/login">
+          login
+        </Button>
+    }                               */}
+            </Toolbar>
+          </AppBar>
+          {/* <Link to="/">Blogs</Link> &nbsp; &nbsp; &nbsp;
+        <Link to="/users">Users</Link> */}
+        </div>
+        {/* <span
           style={{
             position: "absolute",
             right: "890px",
-            top: "4px",
+            top: "27px",
           }}
         >
           <InfoOfUser logOut={logOut} />
-        </span>
+        </span> */}
         <Routes>
           <Route
             path="/users"

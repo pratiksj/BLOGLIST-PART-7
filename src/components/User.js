@@ -1,11 +1,44 @@
 import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 const User = ({ listOfUser }) => {
   console.log("this is from User component", listOfUser);
 
   return (
     <div>
-      <table>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell>
+                <strong>Users</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Blogs</strong>
+              </TableCell>
+            </TableRow>
+            {listOfUser.map((user) => {
+              return (
+                <TableRow key={user.id}>
+                  <TableCell>
+                    <Link to={`/users/${user.id}`}>{user.name}</Link>
+                  </TableCell>
+
+                  <TableCell>{user.blogs.length}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* <table>
         <thead>
           <tr>
             <td>
@@ -31,7 +64,7 @@ const User = ({ listOfUser }) => {
             );
           })}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };
