@@ -51,27 +51,27 @@ const Blog = ({ blog, user }) => {
           <TableBody>
             {!disPlay ? (
               <TableRow key={blog.id}>
-                <div>
-                  <TableCell>
-                    <Link to={`/blogs/${blog.id}`}>
-                      {blog.title} {blog.author}
-                    </Link>
-                    <Button
-                      onClick={showToggle}
-                      variant="contained"
-                      color="primary"
-                      type="submit"
-                      style={{
-                        position: "absolute",
-                        //top: "254px",
-                        left: "500px",
-                      }}
-                    >
-                      view
-                    </Button>
-                  </TableCell>
-                  {/* <button onClick={showToggle}>view</button> */}
-                </div>
+                {/* <div> */}
+                <TableCell>
+                  <Link to={`/blogs/${blog.id}`}>
+                    {blog.title} {blog.author}
+                  </Link>
+                  <Button
+                    onClick={showToggle}
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    style={{
+                      position: "absolute",
+                      //top: "254px",
+                      left: "500px",
+                    }}
+                  >
+                    view
+                  </Button>
+                </TableCell>
+                {/* <button onClick={showToggle}>view</button> */}
+                {/* </div> */}
               </TableRow>
             ) : (
               <div>

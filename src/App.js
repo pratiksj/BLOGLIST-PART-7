@@ -119,6 +119,11 @@ const App = () => {
 
   return (
     <Container>
+      {/* <div>
+        <Alert severity="success">
+          <Notification />
+        </Alert>
+      </div> */}
       <div>
         <Notification />
         <div>
