@@ -126,7 +126,8 @@ const App = () => {
         <span
           style={{
             position: "absolute",
-            right: "950px",
+            right: "890px",
+            top: "4px",
           }}
         >
           <InfoOfUser logOut={logOut} />

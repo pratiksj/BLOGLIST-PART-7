@@ -9,7 +9,6 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-//import blogService from "../services/blogs";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { increaseLike, deletedBlog } from "../reducers/blogReducer";
@@ -18,19 +17,8 @@ import { setNotification } from "../reducers/notificationReducer";
 const Blog = ({ blog, user }) => {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.blogs);
-  //console.log("america", blogs);
 
   const [disPlay, setDisPlay] = useState(false);
-
-  // const blogStyle = {
-  //   //paddingTop: 8,
-  //   // paddingLeft: 2,
-  //   //paddingRight: 2,
-  //   border: "solid",
-  //   borderWidth: 2,
-  //   borderColor: "black",
-  //   marginBottom: 5,
-  // };
 
   const showToggle = () => {
     setDisPlay(!disPlay);
@@ -57,7 +45,6 @@ const Blog = ({ blog, user }) => {
   };
 
   return (
-    //<div style={blogStyle} key={blog}>
     <div>
       <TableContainer component={Paper}>
         <Table>
@@ -94,6 +81,13 @@ const Blog = ({ blog, user }) => {
                   variant="contained"
                   color="secondary"
                   type="submit"
+                  style={{
+                    maxWidth: "40px",
+                    maxHeight: "30px",
+                    minWidth: "30px",
+                    minHeight: "30px",
+                    fontSize: "10px",
+                  }}
                 >
                   Hide
                 </Button>
@@ -114,6 +108,7 @@ const Blog = ({ blog, user }) => {
                       maxHeight: "30px",
                       minWidth: "30px",
                       minHeight: "30px",
+                      fontSize: "10px",
                     }}
                   >
                     like
@@ -126,6 +121,13 @@ const Blog = ({ blog, user }) => {
                     variant="contained"
                     color="error"
                     type="submit"
+                    style={{
+                      maxWidth: "45px",
+                      maxHeight: "30px",
+                      minWidth: "30px",
+                      minHeight: "30px",
+                      fontSize: "10px",
+                    }}
                   >
                     remove
                   </Button>

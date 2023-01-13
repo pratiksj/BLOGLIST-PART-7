@@ -4,8 +4,16 @@ import { useEffect, useState } from "react";
 import { increaseLike } from "../reducers/blogReducer";
 import { setNotification } from "../reducers/notificationReducer";
 import { useDispatch } from "react-redux";
+import {
+  Typography,
+  TextField,
+  Button,
+  ListItemText,
+  Link,
+} from "@mui/material";
 
 export const BlogDetails = ({ singleBlog, blogs }) => {
+  if (!singleBlog) return null;
   const dispatch = useDispatch();
 
   const newLike = (id) => {
@@ -39,28 +47,96 @@ export const BlogDetails = ({ singleBlog, blogs }) => {
 
   return (
     <div>
-      <h1>{singleBlog.title}</h1>
-      <a href={singleBlog.url}>{singleBlog.url}</a>
+      <Typography
+        align="justify"
+        variant="h4"
+        mt={2}
+        fontSize="25px"
+        fontStyle="italic"
+        fontWeight="bold"
+      >
+        {singleBlog.title}
+      </Typography>
+      <Link href="#">{singleBlog.url}</Link>
       &nbsp; &nbsp; &nbsp;{" "}
       <div>
-        {singleBlog.likes} likes
-        <button
+        <Typography
+          align="justify"
+          variant="h4"
+          mt={2}
+          fontSize="25px"
+          fontStyle="normal"
+          fontWeight="bold"
+        >
+          {singleBlog.likes} likes
+        </Typography>
+        <Button
           onClick={() => {
             newLike(singleBlog.id);
           }}
+          variant="contained"
+          color="secondary"
+          type="submit"
+          sx={{ mt: 2 }}
+          style={{
+            maxWidth: "30px",
+            maxHeight: "20px",
+            minWidth: "30px",
+            minHeight: "25px",
+            fontSize: "10px",
+            margin: "0 auto",
+            display: "flex",
+            right: "470px",
+            bottom: "30px",
+          }}
         >
           like
-        </button>
+        </Button>
       </div>
-      <strong>added by {singleBlog.author}</strong>
+      <Typography
+        align="justify"
+        variant="h4"
+        mt={0.5}
+        fontSize="25px"
+        fontStyle="normal"
+        fontWeight="bold"
+      >
+        added by {singleBlog.author}
+      </Typography>
       <div>
         <strong>comments</strong>
         <form onSubmit={newComment}>
-          <input name="comment" />
-          <button>add comment</button>
+          <TextField
+            id="outlined-basic"
+            label="Outlined secondary"
+            color="secondary"
+            focused
+            variant="outlined"
+            size="small"
+            name="comment"
+            sx={{ mt: 4 }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            fontSize="20px"
+            style={{
+              margin: "0 auto",
+              display: "flex",
+              right: "330px",
+              bottom: "37px",
+            }}
+          >
+            Add
+          </Button>
         </form>
         {comments.map((comment) => {
-          return <li key={comment.id}>{comment.comment}</li>;
+          return (
+            <ListItemText key={comment.id} sx={{ color: "green" }}>
+              {comment.comment}
+            </ListItemText>
+          );
         })}
       </div>
     </div>
