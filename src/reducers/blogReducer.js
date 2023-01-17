@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import blogService from "../services/blogs";
+import { setNotification } from "./notificationReducer";
 
 const blogSlice = createSlice({
   name: "blog",
@@ -50,7 +51,16 @@ export const initializedBlog = () => {
 export const createBlog = (blog) => {
   return async (dispatch) => {
     const newBlog = await blogService.create(blog);
-    dispatch(appendBlog(newBlog));
+    console.log(newBlog.error, "this id new");
+
+    if (newBlog.error) {
+      console.log("erorojfsdajfsfsfjlsj");
+      dispatch(setNotification(newBlog.error, 2));
+    } else {
+      console.log("error didnot occur");
+      dispatch(appendBlog(newBlog));
+    }
+    console.log("outside if else");
   };
 };
 

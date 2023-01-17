@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Button } from "@mui/material";
-//import { Link } from "react-router-dom";
 
 export const InfoOfUser = ({ logOut }) => {
   const user = useSelector((state) => state.user);
@@ -25,7 +24,6 @@ export const InfoOfUser = ({ logOut }) => {
       >
         logout
       </Button>
-      {/* <button onClick={logOut}>logout</button> */}
     </div>
   );
 };

@@ -6,7 +6,6 @@ export const ListOfUser = ({ singleUser }) => {
   if (!singleUser) return null;
   return (
     <div>
-      {/* <h1>{singleUser.name}</h1> */}
       <Typography
         align="justify"
         variant="h4"
@@ -29,19 +28,11 @@ export const ListOfUser = ({ singleUser }) => {
         Added Blogs
       </Typography>
 
-      {/* {singleUser.blogs && (
-        <ul>
-          {singleUser.blogs.map((blog) => (
-            <li key={blog.id}>{blog.title}</li>
-          ))}
-        </ul>
-      )} */}
       <ul>
         {singleUser.blogs.map((blog) => (
           <ListItemText key={blog.id} sx={{ color: "green" }}>
             {blog.title}
           </ListItemText>
-          // <li key={blog.id}>{blog.title}</li>
         ))}
       </ul>
     </div>

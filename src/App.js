@@ -71,7 +71,7 @@ const App = () => {
       // setPassword("");
       dispatch(setNotification(`${user.name} has login successfully`, 3));
     } catch (exception) {
-      dispatch(setNotification("wrong username or password", 3));
+      //dispatch(setNotification("wrong username or password", 3));
     }
   };
   const loginForm = () => (
@@ -95,17 +95,15 @@ const App = () => {
   };
 
   const addBlog = async (blogObject) => {
-    try {
-      dispatch(createBlog(blogObject));
-      noteFormRef.current.toggleVisibility();
-    } catch (exception) {
-      dispatch(
-        setNotification(
-          "Title or author must contain more than 5 character ",
-          3
-        )
-      );
-    }
+    dispatch(createBlog(blogObject));
+    noteFormRef.current.toggleVisibility();
+    dispatch(setNotification(`${blogObject.author} has added new blog`, 2));
+    // } catch (error) {
+    //   dispatch(setErrorMessage(error.response.data.error));
+    // setTimeout(() => {
+    //   dispatch(setErrorMessage(null));
+    // }, 2000);
+    // }
   };
 
   const blogForm = () => (

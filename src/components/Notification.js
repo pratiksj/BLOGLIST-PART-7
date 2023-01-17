@@ -3,12 +3,8 @@ import { Alert } from "@mui/material";
 
 const Notification = () => {
   const notification = useSelector((state) => state.notifications);
+  console.log(notification, "this is from notification");
 
-  // const style = {
-  //   border: "solid",
-  //   padding: 10,
-  //   boderWidth: 1,
-  // };
   if (notification === null) {
     return null;
   }
