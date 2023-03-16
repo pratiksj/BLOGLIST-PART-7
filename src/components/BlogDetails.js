@@ -13,12 +13,13 @@ import {
 } from "@mui/material";
 
 export const BlogDetails = ({ singleBlog, blogs }) => {
+  console.log(singleBlog, "singleBlog from BlogDetails");
   if (!singleBlog) return null;
   const dispatch = useDispatch();
 
-  const newLike = (id) => {
-    const updatedLike = blogs.find((blog) => blog.id === id);
-    dispatch(increaseLike(id));
+  const newLike = (obj) => {
+    const updatedLike = blogs.find((blog) => blog.id === obj.id);
+    dispatch(increaseLike(updatedLike));
     dispatch(setNotification(`you have like ${updatedLike.title}`, 3));
   };
   //if (!singleBlog) return null;
@@ -72,7 +73,7 @@ export const BlogDetails = ({ singleBlog, blogs }) => {
         </Typography>
         <Button
           onClick={() => {
-            newLike(singleBlog.id);
+            newLike(singleBlog); //passing object as argument instead of selected item id
           }}
           variant="contained"
           color="secondary"

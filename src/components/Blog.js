@@ -103,29 +103,6 @@ const Blog = ({ blog }) => {
                     remove
                   </Button>
                 </div>
-                {/* {blog.user === user.id || blog.user.id ? (
-                  <Button
-                    onClick={() => blogToDelete(blog.id)}
-                    variant="contained"
-                    color="error"
-                    type="submit"
-                    style={{
-                      maxWidth: "45px",
-                      maxHeight: "30px",
-                      minWidth: "30px",
-                      minHeight: "30px",
-                      fontSize: "10px",
-                    }}
-                  >
-                    remove
-                  </Button>
-                ) : // <button
-                //   style={{ backgroundColor: "red" }}
-                //   onClick={() => blogToDelete(blog.id)}
-                // >
-                //   remove
-                // </button>
-                null} */}
               </div>
             )}
           </TableBody>

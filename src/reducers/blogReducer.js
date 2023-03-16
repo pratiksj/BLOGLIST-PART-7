@@ -13,18 +13,13 @@ const blogSlice = createSlice({
       return action.payload;
     },
     voteOf(state, action) {
-      const id = action.payload;
-      const blogToLike = state.find((n) => n.id === id);
-      const likedBlog = {
-        ...blogToLike,
-        likes: blogToLike.likes + 1,
-      };
-      return state.map((blog) => (blog.id !== id ? blog : likedBlog));
+      return state.map((blog) =>
+        blog.id === action.payload.id ? action.payload : blog
+      );
     },
     deleteBlog(state, action) {
       const id = action.payload;
       const blogToRemove = state.filter((blog) => blog.id !== id);
-      //console.log("this is delete", blogToRemove);
       return blogToRemove;
     },
   },
@@ -43,7 +38,6 @@ export const deletedBlog = (id) => {
 export const initializedBlog = () => {
   return async (dispatch) => {
     const blogs = await blogService.getAll();
-    console.log("annitya", blogs);
     dispatch(setBlog(blogs));
   };
 };
@@ -64,15 +58,14 @@ export const createBlog = (blog) => {
   };
 };
 
-export const increaseLike = (id) => {
+export const increaseLike = (obj) => {
+  console.log(obj, "this is id from increaselike function");
   return async (dispatch) => {
-    const blog = await blogService.getAll();
-    const blogToLike = blog.find((blog) => blog.id === id);
     const likedBlog = {
-      ...blogToLike,
-      likes: blogToLike.likes + 1,
+      ...obj,
+      likes: obj.likes + 1,
     };
-    const response = await blogService.update(id, likedBlog);
-    dispatch(voteOf(response.id));
+    const response = await blogService.update(obj.id, likedBlog);
+    dispatch(voteOf(response));
   };
 };
