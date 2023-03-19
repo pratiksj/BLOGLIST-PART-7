@@ -17,6 +17,8 @@ import { setNotification } from "../reducers/notificationReducer";
 const Blog = ({ blog }) => {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.blogs);
+  const user = useSelector((state) => state.user);
+  console.log(user, "this is user from Blog component");
 
   const [disPlay, setDisPlay] = useState(false);
 
@@ -26,6 +28,7 @@ const Blog = ({ blog }) => {
 
   const blogToDelete = async (id) => {
     const blogToRemove = blogs.find((blog) => blog.id === id);
+
     //console.log("thailand", blogToRemove);
     const result = window.confirm(
       `remove the ${blogToRemove.title}by ${blogToRemove.author}`
@@ -34,8 +37,8 @@ const Blog = ({ blog }) => {
 
     if (result) {
       dispatch(deletedBlog(id));
+      dispatch(setNotification(` you have deleted ${blogToRemove.title}`, 3));
     }
-    dispatch(setNotification(` you have deleted ${blogToRemove.title}`, 3));
   };
 
   return (
@@ -66,44 +69,48 @@ const Blog = ({ blog }) => {
                 </TableCell>
               </TableRow>
             ) : (
-              <div>
-                <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-                <Button
-                  onClick={showToggle}
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  style={{
-                    maxWidth: "40px",
-                    maxHeight: "30px",
-                    minWidth: "30px",
-                    minHeight: "30px",
-                    fontSize: "10px",
-                  }}
-                >
-                  Hide
-                </Button>
-                <div>{blog.author}</div>
-                <div className="url">{blog.url}</div>
-                <div id="like">
-                  likes {blog.likes}
-                  <Button
-                    onClick={() => blogToDelete(blog.id)}
-                    variant="contained"
-                    color="error"
-                    type="submit"
-                    style={{
-                      maxWidth: "45px",
-                      maxHeight: "30px",
-                      minWidth: "30px",
-                      minHeight: "30px",
-                      fontSize: "10px",
-                    }}
-                  >
-                    remove
-                  </Button>
-                </div>
-              </div>
+              <tr>
+                <td>
+                  <div>
+                    <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                    <Button
+                      onClick={showToggle}
+                      variant="contained"
+                      color="secondary"
+                      type="submit"
+                      style={{
+                        maxWidth: "40px",
+                        maxHeight: "30px",
+                        minWidth: "30px",
+                        minHeight: "30px",
+                        fontSize: "10px",
+                      }}
+                    >
+                      Hide
+                    </Button>
+                    <div>{blog.author}</div>
+                    <div className="url">{blog.url}</div>
+                    <div id="like">likes {blog.likes}</div>
+                    {blog.user === user.id ? (
+                      <Button
+                        onClick={() => blogToDelete(blog.id)}
+                        variant="contained"
+                        color="error"
+                        type="submit"
+                        style={{
+                          maxWidth: "45px",
+                          maxHeight: "30px",
+                          minWidth: "30px",
+                          minHeight: "30px",
+                          fontSize: "10px",
+                        }}
+                      >
+                        remove
+                      </Button>
+                    ) : null}
+                  </div>
+                </td>
+              </tr>
             )}
           </TableBody>
         </Table>

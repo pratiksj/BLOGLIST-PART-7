@@ -19,7 +19,7 @@ export const BlogDetails = ({ singleBlog, blogs }) => {
 
   const newLike = (obj) => {
     const updatedLike = blogs.find((blog) => blog.id === obj.id);
-    dispatch(increaseLike(updatedLike));
+    dispatch(increaseLike(obj));
     dispatch(setNotification(`you have like ${updatedLike.title}`, 3));
   };
   //if (!singleBlog) return null;
