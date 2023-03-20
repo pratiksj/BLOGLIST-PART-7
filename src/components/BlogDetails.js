@@ -17,9 +17,9 @@ export const BlogDetails = ({ singleBlog, blogs }) => {
   if (!singleBlog) return null;
   const dispatch = useDispatch();
 
-  const newLike = (obj) => {
-    const updatedLike = blogs.find((blog) => blog.id === obj.id);
-    dispatch(increaseLike(obj));
+  const newLike = (id) => {
+    const updatedLike = blogs.find((blog) => blog.id === id);
+    dispatch(increaseLike(updatedLike));
     dispatch(setNotification(`you have like ${updatedLike.title}`, 3));
   };
   //if (!singleBlog) return null;
@@ -73,7 +73,7 @@ export const BlogDetails = ({ singleBlog, blogs }) => {
         </Typography>
         <Button
           onClick={() => {
-            newLike(singleBlog); //passing object as argument instead of selected item id
+            newLike(singleBlog.id); //passing object as argument instead of selected item id
           }}
           variant="contained"
           color="secondary"

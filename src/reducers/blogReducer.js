@@ -13,6 +13,7 @@ const blogSlice = createSlice({
       return action.payload;
     },
     voteOf(state, action) {
+      console.log(action.payload, "i am payload");
       return state.map((blog) =>
         blog.id === action.payload.id ? action.payload : blog
       );
